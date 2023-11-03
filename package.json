@@ -1,0 +1,28 @@
+{
+  "name": "crud-hapijs",
+  "version": "1.0.0",
+  "description": "percobaan CRUD dengan hapijs atau membuat aplikasi seperti todo list app, syukran",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js --ext ejs,js",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^21.3.2",
+    "@hapi/inert": "^7.1.0",
+    "@hapi/vision": "^7.0.3",
+    "axios": "^1.6.0",
+    "hapi-plugin-mysql": "^7.2.7",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.52.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.0",
+    "eslint-plugin-n": "^16.2.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "nodemon": "^3.0.1"
+  }
+}
