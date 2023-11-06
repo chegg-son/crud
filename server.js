@@ -29,7 +29,7 @@ async function start() {
             database: 'todo'
         }
     })
-
+    
     await server.register([
         Vision,
         Inert
