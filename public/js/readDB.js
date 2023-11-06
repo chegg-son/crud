@@ -15,26 +15,24 @@ window.addEventListener('load', () => {
                     const idTd = document.createElement('td')
                     const tasksTd = document.createElement('td')
                     const statusTd = document.createElement('td')
-                    statusTd.classList.add('d-flex', 'px-2')
 
                     // Set the text content for each td
                     idTd.textContent = kegiatan.id
                     tasksTd.textContent = kegiatan.tasks
-                    // statusTd.textContent = kegiatan.status;
 
                     // membuat div untuk menampung button di kolom status
                     const divStatus = document.createElement('div')
-                    divStatus.classList.add('container', 'px-2')
-
-                    // membuat button mengubah/update
-                    const updateBtn = document.createElement('button')
-                    updateBtn.type = 'button'
-                    updateBtn.classList.add('btn', 'btn-primary', 'fa-regular', 'fa-pen-to-square')
+                    divStatus.classList.add('container', 'd-flex', 'justify-content-around', 'px-4')
 
                     // Membuat elemen input untuk mengedit teks
                     const tasksInput = document.createElement('input')
                     tasksInput.type = 'text'
                     tasksInput.value = kegiatan.tasks
+
+                    // membuat button mengubah/update
+                    const updateBtn = document.createElement('button')
+                    updateBtn.type = 'button'
+                    updateBtn.classList.add('btn', 'btn-primary', 'fa-regular', 'fa-pen-to-square')
 
                     // membuat button mengubah/update
                     const deleteBtn = document.createElement('button')
@@ -79,8 +77,10 @@ window.addEventListener('load', () => {
 
                         // Tampilkan elemen input, tombol "Simpan", dan tombol "Batal"
                         tasksTd.appendChild(tasksInput)
-                        statusTd.appendChild(saveBtn)
-                        statusTd.appendChild(cancelBtn)
+                        // statusTd.appendChild(saveBtn)
+                        // statusTd.appendChild(cancelBtn)
+
+                        statusTd.appendChild(divStatus)
 
                         // Fokuskan elemen input agar pengguna dapat mengedit langsung
                         tasksInput.focus()
