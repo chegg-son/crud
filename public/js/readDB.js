@@ -13,8 +13,13 @@ window.addEventListener('load', () => {
 
                     // Create td elements for id, tasks, and status
                     const idTd = document.createElement('td')
+                    idTd.classList.add('align-middle')
+
                     const tasksTd = document.createElement('td')
+                    tasksTd.classList.add('align-middle')
+
                     const statusTd = document.createElement('td')
+                    statusTd.classList.add('align-middle')
 
                     // Set the text content for each td
                     idTd.textContent = kegiatan.id
@@ -28,6 +33,7 @@ window.addEventListener('load', () => {
                     const tasksInput = document.createElement('input')
                     tasksInput.type = 'text'
                     tasksInput.value = kegiatan.tasks
+                    tasksInput.classList.add('w-80')
 
                     // membuat button mengubah/update
                     const updateBtn = document.createElement('button')
@@ -77,8 +83,6 @@ window.addEventListener('load', () => {
 
                         // Tampilkan elemen input, tombol "Simpan", dan tombol "Batal"
                         tasksTd.appendChild(tasksInput)
-                        // statusTd.appendChild(saveBtn)
-                        // statusTd.appendChild(cancelBtn)
 
                         statusTd.appendChild(divStatus)
 
@@ -87,12 +91,36 @@ window.addEventListener('load', () => {
                     })
 
                     cancelBtn.addEventListener('click', () => {
+                        // mengembalikan tampilan button semua ke semula
                         updateBtn.style.display = 'block'
                         deleteBtn.style.display = 'block'
                         saveBtn.style.display = 'none'
                         cancelBtn.style.display = 'none'
                         tasksInput.style.display = 'none'
                         tasksTd.textContent = kegiatan.tasks
+                    })
+
+                    saveBtn.addEventListener('click', async () => {
+                        const updatedData = {
+                            id: kegiatan.id,
+                            updatedTasks: tasksInput.value
+                        }
+                        console.log(updatedData)
+
+                        axios.put('/show', updatedData)
+                            .then((response) => {
+                                console.log(response)
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+
+                        updateBtn.style.display = 'block'
+                        deleteBtn.style.display = 'block'
+                        saveBtn.style.display = 'none'
+                        cancelBtn.style.display = 'none'
+                        tasksInput.style.display = 'none'
+                        tasksTd.textContent = tasksInput.value
                     })
 
                     // Append td elements to the row

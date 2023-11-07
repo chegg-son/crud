@@ -70,6 +70,44 @@ const testRoute = [
                 title: 'Percobaan EJS dengan API'
             })
         }
+    },
+    {
+        // bagian untuk Update database dari UI(front-end)
+        method: 'PUT',
+        path: '/show',
+        handler: async (req, res) => {
+            const { id, updatedTasks } = req.payload
+            console.log(id.value)
+            // console.log(id, 'kali', updatedTasks)
+            const sql = `UPDATE \`todo_list\` SET \`tasks\` = '${updatedTasks}', \`status\` = '1' WHERE \`todo_list\`.\`id\` = ${id};`
+
+            try {
+                const result = await req.app.db.query(sql)
+                console.log(result)
+                return customResponse(200, result, 'Mengambil data dari database', res)
+            } catch (error) {
+                throw error
+            }
+        }
+    },
+    {
+        // bagian untuk Update database dari UI(front-end)
+        method: 'POST',
+        path: '/show',
+        handler: async (req, res) => {
+            const { id, updatedTasks } = req.payload
+            console.log(id.value)
+            // console.log(id, 'kali', updatedTasks)
+            const sql = `UPDATE \`todo_list\` SET \`tasks\` = '${updatedTasks}', \`status\` = '1' WHERE \`todo_list\`.\`id\` = ${id};`
+
+            try {
+                const result = await req.app.db.query(sql)
+                console.log(result)
+                return customResponse(200, result, 'Mengambil data dari database', res)
+            } catch (error) {
+                throw error
+            }
+        }
     }
 ]
 
