@@ -10,9 +10,11 @@ window.addEventListener('load', () => {
         axios.get('/getDatabase')
             .then((response) => {
                 const dataKegiatan = response.data.datas
+
                 addBtn.addEventListener('click', async () => {
-                    const tr = document.createElement('tr')
-                    
+                    if (inputNew.value === '') {
+                        return alert('Harap isi bagian tasks')
+                    }
                     const createData = {
                         newInput: inputNew.value
                     }
