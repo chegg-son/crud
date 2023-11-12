@@ -14,24 +14,24 @@
 </head>
 
 <body>
-    <h1 class="text-center">Todo List App</h1>
+    <h1 class="text-center pt-4">Todo List App</h1>
     <!-- tes koneksi DB -->
     <p id="db"></p>
     <!-- end tes koneksi DB -->
 
     <div class="container">
         <div class="row">
-            <form action="" class="d-flex text-center">
+            <div action="" class="d-flex text-center">
                 <div class="col-10">
                     <div class="input-group flex-nowrap">
-                        <input type="text" class="form-control" placeholder="Tambahkan keterangan"
+                        <input id="input" type="text" class="form-control" placeholder="Tambahkan keterangan"
                             aria-label="keterangan" aria-describedby="addon-wrapping">
                     </div>
                 </div>
                 <div class="col-2">
-                    <button type="submit" class="btn btn-primary">Add</button>
+                    <button id="addBtn" type="submit" class="btn btn-primary">Add</button>
                 </div>
-            </form>
+            </div>
             <br>
             <br class="py-3">
             <table class="table table-hover table-sm" id="tabel">

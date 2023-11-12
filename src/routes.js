@@ -84,7 +84,7 @@ const testRoute = [
             try {
                 const result = await req.app.db.query(sql)
                 console.log(result)
-                return customResponse(200, result, 'Mengambil data dari database', res)
+                return customResponse(200, result, 'Update data ke database', res)
             } catch (error) {
                 throw error
             }
@@ -95,15 +95,28 @@ const testRoute = [
         method: 'POST',
         path: '/show',
         handler: async (req, res) => {
-            const { id, updatedTasks } = req.payload
-            console.log(id.value)
-            // console.log(id, 'kali', updatedTasks)
-            const sql = `UPDATE \`todo_list\` SET \`tasks\` = '${updatedTasks}', \`status\` = '1' WHERE \`todo_list\`.\`id\` = ${id};`
+            const { newInput } = req.payload
+            const sql = `INSERT INTO \`todo_list\` (\`id\`, \`tasks\`, \`status\`) VALUES (NULL, '${newInput}', '');`
+            try {
+                const result = await req.app.db.query(sql)
+                console.log(result)
+                return customResponse(200, result, 'Menambah data ke database', res)
+            } catch (error) {
+                throw error
+            }
+        }
+    },
+    {
+        method: 'DELETE',
+        path: '/show',
+        handler: async (req, res) => {
+            const { id } = req.payload
+            const sql = `DELETE FROM todo_list WHERE \`todo_list\`.\`id\` = ${id}`
 
             try {
                 const result = await req.app.db.query(sql)
                 console.log(result)
-                return customResponse(200, result, 'Mengambil data dari database', res)
+                return customResponse(200, result, 'Menghapus data dari database', res)
             } catch (error) {
                 throw error
             }

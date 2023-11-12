@@ -3,13 +3,31 @@
 
 window.addEventListener('load', () => {
     setTimeout(() => {
+        // load Bagian add todolist: Input text dan Add button
+        const addBtn = document.getElementById('addBtn')
+        const inputNew = document.getElementById('input')
+
         axios.get('/getDatabase')
             .then((response) => {
-                // console.log(response.data.datas)
                 const dataKegiatan = response.data.datas
+                addBtn.addEventListener('click', async () => {
+                    const tr = document.createElement('tr')
+                    
+                    const createData = {
+                        newInput: inputNew.value
+                    }
+                    axios.post('/show', createData)
+                        .then((response) => {
+                            console.log(response)
+                            inputNew.value = ''
+                        })
+                        .catch((e) => {
+                            console.log(e)
+                        })
+                })
+
                 dataKegiatan.forEach(kegiatan => {
                     const tr = document.createElement('tr')
-                    console.log('makan')
 
                     // Create td elements for id, tasks, and status
                     const idTd = document.createElement('td')
@@ -34,6 +52,12 @@ window.addEventListener('load', () => {
                     tasksInput.type = 'text'
                     tasksInput.value = kegiatan.tasks
                     tasksInput.classList.add('w-80')
+
+                    // membuat button konofirmasi hapus database
+                    const confirmBtn = document.createElement('button')
+                    confirmBtn.type = 'button'
+                    confirmBtn.classList.add('btn', 'btn-success', 'fa-solid', 'fa-check')
+                    confirmBtn.style.display = 'none'
 
                     // membuat button mengubah/update
                     const updateBtn = document.createElement('button')
@@ -62,6 +86,7 @@ window.addEventListener('load', () => {
                     divStatus.appendChild(updateBtn)
                     divStatus.appendChild(deleteBtn)
                     divStatus.appendChild(saveBtn)
+                    divStatus.appendChild(confirmBtn)
                     divStatus.appendChild(cancelBtn)
 
                     // membuat bagian checklist
@@ -90,6 +115,28 @@ window.addEventListener('load', () => {
                         tasksInput.focus()
                     })
 
+                    deleteBtn.addEventListener('click', () => {
+                        updateBtn.style.display = 'none'
+                        deleteBtn.style.display = 'none'
+                        confirmBtn.style.display = 'block'
+                        cancelBtn.style.display = 'block'
+                    })
+
+                    confirmBtn.addEventListener('click', () => {
+                        const deletedData = {
+                            id: kegiatan.id
+                        }
+
+                        axios.delete('/show', { data: deletedData })
+                            .then((response) => {
+                                console.log(response)
+                                tr.remove()
+                            })
+                            .catch((error) => {
+                                console.log(error)
+                            })
+                    })
+
                     cancelBtn.addEventListener('click', () => {
                         // mengembalikan tampilan button semua ke semula
                         updateBtn.style.display = 'block'
@@ -97,30 +144,30 @@ window.addEventListener('load', () => {
                         saveBtn.style.display = 'none'
                         cancelBtn.style.display = 'none'
                         tasksInput.style.display = 'none'
+                        confirmBtn.style.display = 'none'
                         tasksTd.textContent = kegiatan.tasks
                     })
 
+                    // bagian Update
                     saveBtn.addEventListener('click', async () => {
                         const updatedData = {
                             id: kegiatan.id,
                             updatedTasks: tasksInput.value
                         }
-                        console.log(updatedData)
 
                         axios.put('/show', updatedData)
                             .then((response) => {
                                 console.log(response)
+                                updateBtn.style.display = 'block'
+                                deleteBtn.style.display = 'block'
+                                saveBtn.style.display = 'none'
+                                cancelBtn.style.display = 'none'
+                                tasksInput.style.display = 'none'
+                                tasksTd.textContent = tasksInput.value
                             })
                             .catch((error) => {
                                 console.log(error)
                             })
-
-                        updateBtn.style.display = 'block'
-                        deleteBtn.style.display = 'block'
-                        saveBtn.style.display = 'none'
-                        cancelBtn.style.display = 'none'
-                        tasksInput.style.display = 'none'
-                        tasksTd.textContent = tasksInput.value
                     })
 
                     // Append td elements to the row
